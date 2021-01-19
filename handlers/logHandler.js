@@ -5,10 +5,8 @@ class LogHandler {
 
   async addLog(req, res) {
     let body = req.body;
-    let log = await this.repository.addLog(body);
-    let resLog = { ...log._doc };
-    delete resLog.__v;
-    res.json(resLog);
+    let user = await this.repository.addLog(body);
+    res.json(user);
   }
 
   async getUserWithLogs(req, res) {

@@ -24,10 +24,9 @@ class Repository {
     let log = new Log({ description, duration, date });
     await log.save();
     user.logs.push(log);
-    console.log(user);
     await user.save();
 
-    return log;
+    return user;
   }
 
   getUserWithLogs(userId, from, to, limit) {
