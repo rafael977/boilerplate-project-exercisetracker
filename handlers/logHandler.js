@@ -7,7 +7,7 @@ class LogHandler {
     let body = req.body;
     let log = await this.repository.addLog(body);
     res.json({
-      _id: log._id,
+      _id: log.user._id,
       username: log.user.username,
       description: log.description,
       duration: log.duration,
