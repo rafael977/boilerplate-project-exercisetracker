@@ -14,6 +14,6 @@ router.post("/new-user", userHandler.addUser.bind(userHandler));
 
 router.post("/add", logHandler.addLog.bind(logHandler));
 
-router.get("/log", logHandler.getUserWithLogs.bind(logHandler));
+router.get("/log", userHandler.getUserWithLogs.bind(userHandler));
 
 module.exports = router;
