@@ -5,6 +5,6 @@ const userSchema = new Schema({
   logs: [{ type: Schema.Types.ObjectId, ref: "Log" }],
 });
 
-const user = model("User", userSchema);
+const User = model("User", userSchema);
 
-module.exports = user;
+module.exports = User;

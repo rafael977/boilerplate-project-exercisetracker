@@ -19,14 +19,13 @@ class Repository {
     }
     let user = await User.findById(userId).exec();
     if (!user) {
-      return new Error("User not  found");
+      throw new Error("User not  found");
     }
-    let log = new Log({ description, duration, date });
+    let log = new Log({ user, description, duration, date });
     await log.save();
     user.logs.push(log);
     await user.save();
-
-    return user;
+    return log;
   }
 
   getUserWithLogs(userId, from, to, limit) {

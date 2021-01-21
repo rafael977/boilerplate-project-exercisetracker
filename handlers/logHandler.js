@@ -5,8 +5,14 @@ class LogHandler {
 
   async addLog(req, res) {
     let body = req.body;
-    let user = await this.repository.addLog(body);
-    res.json(user);
+    let log = await this.repository.addLog(body);
+    res.json({
+      _id: log._id,
+      username: log.user.username,
+      description: log.description,
+      duration: log.duration,
+      date: log.date.toDateString(),
+    });
   }
 
   async getUserWithLogs(req, res) {
@@ -21,14 +27,21 @@ class LogHandler {
       to,
       parseInt(limit)
     );
-    let resBody = { ...user._doc };
 
-    delete resBody.__v;
-    resBody.count = resBody.logs.length;
-    resBody.logs = resBody.logs.map((log) => {
-      delete log.__v;
-      return log;
-    });
+    let resBody = { _id: user._id, username: user.username };
+
+    if (from) {
+      resBody.from = new Date(Date.parse(from)).toDateString();
+    }
+    if (to) {
+      resBody.to = new Date(Date.parse(to)).toDateString();
+    }
+    resBody.count = user.logs.length;
+    resBody.log = user.logs.map((log) => ({
+      description: log.description,
+      duration: log.duration,
+      date: log.date.toDateString(),
+    }));
     res.json(resBody);
   }
 }
